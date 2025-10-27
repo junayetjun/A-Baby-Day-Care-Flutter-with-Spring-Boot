@@ -10,18 +10,19 @@ import 'package:ababydaycare/service/location_service.dart';
 import 'package:flutter/material.dart';
 
 // ====================================================================
-// --- LIGHT MINT GREEN & SOFT PEACH THEME CONSTANTS ---
-// Calm, natural, and bright palette
-const Color primaryColor = Color(0xFF9EE6B2); // Soft mint green
-const Color primaryLight = Color(0xFFE8FDF0); // Very light mint background
-const Color primaryDark = Color(0xFF3BA46E); // Medium green for contrast
-const Color accentColor = Color(0xFFFFCBA4); // Soft peach
-const Color accentLight = Color(0xFFFFF3E9); // Very light peach
+// --- DEEP BLUE & WHITE THEME CONSTANTS ---
+// Professional, calm, and clean palette
+const Color primaryColor = Color(0xFF0D47A1); // Deep blue
+const Color primaryLight = Color(0xFF5472D3); // Lighter blue for highlights
+const Color primaryDark = Color(0xFF002171); // Very deep navy blue
+const Color accentColor = Color(0xFF1976D2); // Medium bright blue accent
+const Color accentLight = Color(0xFFE3F2FD); // Light sky-blue background
 const Color backgroundColor = Color(0xFFFFFFFF); // Pure white background
 
 const double kPadding = 16.0;
 const double kBorderRadius = 12.0;
 // ====================================================================
+
 
 
 
@@ -162,7 +163,7 @@ class _CaregiverHomeState extends State<CaregiverHome> {
                 },
               ),
               const Text(
-                "Welcome Home! 🏡",
+                "Welcome!",
                 style: TextStyle(
                     color: primaryDark,
                     fontSize: 16,
@@ -173,13 +174,17 @@ class _CaregiverHomeState extends State<CaregiverHome> {
           ),
 
           const SizedBox(height: 4),
-          const Text(
-            "Available Circular",
-            style: TextStyle(
+          const Center(
+            child: Text(
+              "Available Circular",
+              style: TextStyle(
                 color: Colors.black87,
                 fontSize: 26,
-                fontWeight: FontWeight.bold),
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
+
           const SizedBox(height: 24),
 
           // Filter Row
@@ -254,34 +259,87 @@ class _CaregiverHomeState extends State<CaregiverHome> {
   }
 
   Widget _buildCategoryDropdown() {
-    return _buildDropdown(
-      labelText: "Category",
-      value: _selectedCategoryId,
-      items: [
-        const DropdownMenuItem<int?>(value: null, child: Text("All Services", style: TextStyle(color: Colors.grey))),
-        ..._categories.map((cat) => DropdownMenuItem<int?>(
-          value: cat.id,
-          child: Text(cat.name, overflow: TextOverflow.ellipsis),
-        )),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center, // 👈 centers content horizontally
+      children: [
+        const Padding(
+          padding: EdgeInsets.only(bottom: 6.0),
+          child: Text(
+            "Category",
+            textAlign: TextAlign.center, // 👈 centers text
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              color: primaryDark,
+            ),
+          ),
+        ),
+        SizedBox(
+          width: double.infinity, // 👈 make dropdown stretch to full width
+          child: _buildDropdown(
+            labelText: "",
+            value: _selectedCategoryId,
+            items: [
+              const DropdownMenuItem<int?>(
+                value: null,
+                child: Text(" All Categories ", style: TextStyle(color: Colors.grey)),
+              ),
+              ..._categories.map(
+                    (cat) => DropdownMenuItem<int?>(
+                  value: cat.id,
+                  child: Text(cat.name, overflow: TextOverflow.ellipsis),
+                ),
+              ),
+            ],
+            onChanged: (value) => setState(() => _selectedCategoryId = value),
+          ),
+        ),
       ],
-      onChanged: (value) => setState(() => _selectedCategoryId = value),
     );
   }
 
+
+
   Widget _buildLocationDropdown() {
-    return _buildDropdown(
-      labelText: "Location",
-      value: _selectedLocationId,
-      items: [
-        const DropdownMenuItem<int?>(value: null, child: Text("All Areas", style: TextStyle(color: Colors.grey))),
-        ..._locations.map((loc) => DropdownMenuItem<int?>(
-          value: loc.id,
-          child: Text(loc.name, overflow: TextOverflow.ellipsis),
-        )),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center, // center everything
+      children: [
+        const Padding(
+          padding: EdgeInsets.only(bottom: 6.0),
+          child: Text(
+            "Location",
+            textAlign: TextAlign.center, // center the text itself
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              color: primaryDark,
+            ),
+          ),
+        ),
+        SizedBox(
+          width: double.infinity, // make dropdown full width
+          child: _buildDropdown(
+            labelText: "", // remove floating label
+            value: _selectedLocationId,
+            items: [
+              const DropdownMenuItem<int?>(
+                value: null,
+                child: Text(" All Areas ", style: TextStyle(color: Colors.grey)),
+              ),
+              ..._locations.map(
+                    (loc) => DropdownMenuItem<int?>(
+                  value: loc.id,
+                  child: Text(loc.name, overflow: TextOverflow.ellipsis),
+                ),
+              ),
+            ],
+            onChanged: (value) => setState(() => _selectedLocationId = value),
+          ),
+        ),
       ],
-      onChanged: (value) => setState(() => _selectedLocationId = value),
     );
   }
+
 
   Widget _buildJobListing() {
     if (_jobs.isEmpty && !_isLoading) {

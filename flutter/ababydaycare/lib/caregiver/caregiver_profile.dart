@@ -155,12 +155,12 @@ class CaregiverProfile extends StatelessWidget {
             ),
           ),
           _buildDrawerItem(context, Icons.person, "My Profile", () => Navigator.pop(context)),
-          _buildDrawerItem(context, Icons.home, "Home", () {
+          _buildDrawerItem(context, Icons.home, "Posted Circular", () {
             Navigator.push(context, MaterialPageRoute(builder: (_) => CaregiverHome(profile: profile)));
           }),
-          _buildDrawerItem(context, Icons.school, "Education", () {
-            Navigator.push(context, MaterialPageRoute(builder: (_) => EducationListScreen(profile: profile)));
-          }),
+          // _buildDrawerItem(context, Icons.school, "Education", () {
+          //   Navigator.push(context, MaterialPageRoute(builder: (_) => EducationListScreen(profile: profile)));
+          // }),
           _buildDrawerItem(context, Icons.settings, "Settings", () => Navigator.pop(context)),
           const Divider(color: Colors.pinkAccent),
           _buildDrawerItem(
