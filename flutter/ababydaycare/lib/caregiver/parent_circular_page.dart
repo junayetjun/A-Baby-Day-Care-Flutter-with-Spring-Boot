@@ -1,4 +1,5 @@
 
+import 'package:ababydaycare/DTO/circularDTO.dart';
 import 'package:ababydaycare/DTO/job_dto.dart';
 import 'package:ababydaycare/caregiver/caregiver_profile.dart';
 import 'package:ababydaycare/caregiver/circular_details_page.dart';
@@ -43,7 +44,7 @@ class _CaregiverHomeState extends State<CaregiverHome> {
   final LocationService _locationService = LocationService();
   final CategoryService _categoryService = CategoryService();
 
-  List<JobDTO> _jobs = [];
+  List<CircularDTO> _jobs = [];
   List<Location> _locations = [];
   List<Category> _categories = [];
 
@@ -299,7 +300,6 @@ class _CaregiverHomeState extends State<CaregiverHome> {
   }
 
 
-
   Widget _buildLocationDropdown() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center, // center everything
@@ -371,7 +371,7 @@ class _CaregiverHomeState extends State<CaregiverHome> {
     );
   }
 
-  Widget _buildJobCard(JobDTO job) {
+  Widget _buildJobCard(CircularDTO job) {
     return Card(
       margin: const EdgeInsets.only(bottom: kPadding),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(kBorderRadius)),

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:ababydaycare/DTO/circularDTO.dart';
 import 'package:ababydaycare/DTO/job_dto.dart';
 import 'package:ababydaycare/entity/job.dart';
 import 'package:ababydaycare/service/auth_service.dart';
@@ -43,12 +44,12 @@ class JobService {
   }
 
   /// ✅ Get all jobs (public endpoint)
-  Future<List<JobDTO>> getAllJobs() async {
+  Future<List<CircularDTO>> getAllJobs() async {
     final response = await http.get(Uri.parse(baseUrl));
 
     if (response.statusCode == 200) {
       final List<dynamic> data = jsonDecode(response.body);
-      return data.map((json) => JobDTO.fromJson(json)).toList();
+      return data.map((json) => CircularDTO.fromJson(json)).toList();
     } else if (response.statusCode == 204) {
       return [];
     } else {
@@ -114,7 +115,7 @@ class JobService {
   }
 
   /// ✅ Search jobs (GET /api/jobs/search?categoryId&locationId)
-  Future<List<JobDTO>> searchJobs({int? categoryId, int? locationId}) async {
+  Future<List<CircularDTO>> searchJobs({int? categoryId, int? locationId}) async {
     final queryParams = <String, String>{};
     if (categoryId != null) queryParams['categoryId'] = categoryId.toString();
     if (locationId != null) queryParams['locationId'] = locationId.toString();
@@ -127,7 +128,7 @@ class JobService {
 
       final data = jsonDecode(response.body);
       if (data is List) {
-        return data.map((json) => JobDTO.fromJson(json)).toList();
+        return data.map((json) => CircularDTO.fromJson(json)).toList();
       } else {
         throw Exception("Unexpected response type: ${response.body}");
       }
