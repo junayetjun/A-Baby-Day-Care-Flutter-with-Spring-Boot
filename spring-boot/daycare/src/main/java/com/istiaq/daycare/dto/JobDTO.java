@@ -38,7 +38,7 @@ public class JobDTO {
             this.childName = job.getParent().getChildName();
             this.photo = job.getParent().getPhoto();
 
-        }
+        } 
     }
 
 
