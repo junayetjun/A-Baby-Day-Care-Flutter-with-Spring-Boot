@@ -450,7 +450,7 @@ class _CaregiverHomeState extends State<CaregiverHome> {
                       borderRadius: BorderRadius.circular(6),
                     ),
                     child: Text(
-                      job.salary != null ? "\$${job.salary!.toStringAsFixed(2)}/hr" : 'Negotiable',
+                      job.salary != null ? "\$${job.salary!.toStringAsFixed(2)}" : 'Negotiable',
                       style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
