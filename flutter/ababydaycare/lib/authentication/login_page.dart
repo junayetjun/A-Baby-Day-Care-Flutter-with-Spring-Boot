@@ -3,6 +3,7 @@ import 'package:ababydaycare/authentication/admin/admin_page.dart';
 import 'package:ababydaycare/authentication/home_page.dart';
 import 'package:ababydaycare/caregiver/caregiver_profile.dart';
 import 'package:ababydaycare/caregiver/caregiver_registration.dart';
+import 'package:ababydaycare/caregiver/parent_circular_page.dart';
 import 'package:ababydaycare/parent/parent_profile.dart';
 import 'package:ababydaycare/service/auth_service.dart';
 import 'package:ababydaycare/service/caregiver_service.dart';
@@ -201,7 +202,7 @@ class LoginPage extends StatelessWidget {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => CaregiverProfile(profile: profile),
+              builder: (context) => CaregiverHome(profile: profile),
             ),
           );
         }

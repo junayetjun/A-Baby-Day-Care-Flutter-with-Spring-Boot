@@ -28,4 +28,15 @@ class User {
       active: json['active'] ?? false,
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'email': email,
+      'phone': phone,
+      'role': role,
+      'active': active,
+    };
+  }
 }

@@ -66,7 +66,7 @@ class _JobDetailsPageState extends State<JobDetailsPage> {
         "parent": {"id": parentId}
       };
 
-      final result = await _applyService.createApplication(applyPayload, token);
+      final result = await _applyService.applyForJob(applyPayload, token);
       debugPrint('✅ Application successful: ${result.toJson()}');
       _showDialog('Application Successful', 'You have successfully applied!');
     } catch (e) {

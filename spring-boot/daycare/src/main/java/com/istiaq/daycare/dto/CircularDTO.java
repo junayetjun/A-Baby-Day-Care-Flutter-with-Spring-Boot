@@ -1,5 +1,6 @@
 package com.istiaq.daycare.dto;
 
+import com.istiaq.daycare.entity.Job;
 import java.util.Date;
 
 public class CircularDTO {
@@ -11,6 +12,12 @@ public class CircularDTO {
     private String jobType;
     private Date postedDate;
 
+    // Category info
+    private CategoryDTO category;
+
+    // Location info
+    private LocationDTO location;
+
     // Parent info
     private Long parentId;
     private String parentName;
@@ -20,28 +27,38 @@ public class CircularDTO {
     private String childName;
     private String photo;
 
-    private LocationDTO locationDTO;
-
-
     public CircularDTO() {
+        // default constructor
     }
 
-    public CircularDTO(Long id, String title, String description, Double salary, String jobType, Date postedDate, Long parentId, String parentName, String contactPerson, String email, String phone, String childName, String photo, LocationDTO locationDTO) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.salary = salary;
-        this.jobType = jobType;
-        this.postedDate = postedDate;
-        this.parentId = parentId;
-        this.parentName = parentName;
-        this.contactPerson = contactPerson;
-        this.email = email;
-        this.phone = phone;
-        this.childName = childName;
-        this.photo = photo;
-        this.locationDTO = locationDTO;
+    public CircularDTO(Job job) { // Change Job → Circular if your entity is named Circular
+        this.id = job.getId();
+        this.title = job.getTitle();
+        this.description = job.getDescription();
+        this.salary = job.getSalary();
+        this.jobType = job.getJobType();
+        this.postedDate = job.getPostedDate();
+
+        if (job.getCategory() != null) {
+            this.category = new CategoryDTO(job.getCategory());
+        }
+
+        if (job.getLocation() != null) {
+            this.location = new LocationDTO(job.getLocation().getId(), job.getLocation().getName());
+        }
+
+        if (job.getParent() != null) {
+            this.parentId = job.getParent().getId();
+            this.parentName = job.getParent().getParentName();
+            this.contactPerson = job.getParent().getContactPerson();
+            this.email = job.getParent().getEmail();
+            this.phone = job.getParent().getPhone();
+            this.childName = job.getParent().getChildName();
+            this.photo = job.getParent().getPhoto();
+        }
     }
+
+    // --- Getters & Setters ---
 
     public Long getId() {
         return id;
@@ -89,6 +106,22 @@ public class CircularDTO {
 
     public void setPostedDate(Date postedDate) {
         this.postedDate = postedDate;
+    }
+
+    public CategoryDTO getCategory() {
+        return category;
+    }
+
+    public void setCategory(CategoryDTO category) {
+        this.category = category;
+    }
+
+    public LocationDTO getLocation() {
+        return location;
+    }
+
+    public void setLocation(LocationDTO location) {
+        this.location = location;
     }
 
     public Long getParentId() {
@@ -146,14 +179,4 @@ public class CircularDTO {
     public void setPhoto(String photo) {
         this.photo = photo;
     }
-
-    public LocationDTO getLocationDTO() {
-        return locationDTO;
-    }
-
-    public void setLocationDTO(LocationDTO locationDTO) {
-        this.locationDTO = locationDTO;
-    }
-
-
 }

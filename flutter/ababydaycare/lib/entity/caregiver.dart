@@ -1,5 +1,3 @@
-
-
 import 'package:ababydaycare/entity/education.dart';
 import 'package:ababydaycare/entity/experience.dart';
 import 'package:ababydaycare/entity/hobby.dart';
@@ -25,7 +23,6 @@ class Caregiver {
   final List<Language> languages;
   final List<Skill> skills;
 
-
   Caregiver({
     required this.id,
     required this.name,
@@ -46,7 +43,7 @@ class Caregiver {
 
   factory Caregiver.fromJson(Map<String, dynamic> json) {
     return Caregiver(
-      id: json['id'],
+      id: json['id'] ?? 0,
       name: json['name'] ?? '',
       email: json['email'] ?? '',
       phone: json['phone'] ?? '',
@@ -54,13 +51,52 @@ class Caregiver {
       address: json['address'] ?? '',
       dateOfBirth: json['dateOfBirth'] ?? '',
       photo: json['photo'] ?? '',
-      user: User.fromJson(json['user']),
-      educations: (json['educations'] as List?)?.map((e) => Education.fromJson(e)).toList() ?? [],
-      references: (json['references'] as List?)?.map((e) => Reference.fromJson(e)).toList() ?? [],
-      experiences: (json['experiences'] as List?)?.map((e) => Experience.fromJson(e)).toList() ?? [],
-      hobbies: (json['hobbies'] as List?)?.map((e) => Hobby.fromJson(e)).toList() ?? [],
-      languages: (json['languages'] as List?)?.map((e) => Language.fromJson(e)).toList() ?? [],
-      skills: (json['skills'] as List?)?.map((e) => Skill.fromJson(e)).toList() ?? [],
+      user: User.fromJson(json['user'] ?? {}),
+      educations: (json['educations'] as List?)
+          ?.map((e) => Education.fromJson(e))
+          .toList() ??
+          [],
+      references: (json['references'] as List?)
+          ?.map((e) => Reference.fromJson(e))
+          .toList() ??
+          [],
+      experiences: (json['experiences'] as List?)
+          ?.map((e) => Experience.fromJson(e))
+          .toList() ??
+          [],
+      hobbies: (json['hobbies'] as List?)
+          ?.map((e) => Hobby.fromJson(e))
+          .toList() ??
+          [],
+      languages: (json['languages'] as List?)
+          ?.map((e) => Language.fromJson(e))
+          .toList() ??
+          [],
+      skills: (json['skills'] as List?)
+          ?.map((e) => Skill.fromJson(e))
+          .toList() ??
+          [],
     );
+  }
+
+  /// ✅ Add this to fix the "caregiver!.toJson()" error in ViewDetailsDTO
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'email': email,
+      'phone': phone,
+      'gender': gender,
+      'address': address,
+      'dateOfBirth': dateOfBirth,
+      'photo': photo,
+      'user': user.toJson(), // ensure User also has a toJson()
+      'educations': educations.map((e) => e.toJson()).toList(),
+      'references': references.map((e) => e.toJson()).toList(),
+      'experiences': experiences.map((e) => e.toJson()).toList(),
+      'hobbies': hobbies.map((e) => e.toJson()).toList(),
+      'languages': languages.map((e) => e.toJson()).toList(),
+      'skills': skills.map((e) => e.toJson()).toList(),
+    };
   }
 }
